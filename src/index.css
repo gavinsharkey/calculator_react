@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,61 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.app {
+  margin: 30px 0px;
+}
+
+.calculator {
+  margin: auto;
+  width: 310px;
+  border: 5px solid black;
+  border-radius: 10px;
+  border-top-width: 50px;
+}
+
+.display {
+  padding: 10px;
+  text-align: right;
+  height: 90px;
+  font-size: 40px;
+  font-weight: bolder;
+  border-bottom: 5px solid black;
+}
+
+.buttons {
+  padding: 5px
+}
+
+.buttons-top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 0px;
+}
+
+.buttons-bottom {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-gap: 0px;
+}
+
+.button {
+  /* width: 75px; */
+  margin: 5px;
+  height: 75px;
+  padding: 10px;
+  border-radius: 75px;
+  text-align: center;
+  background-color: #222;
+  color: beige;
+}
+
+.button p {
+  margin: 0px;
+  font-size: 35px;
+  font-weight: bolder;
+  height: 100%;
 }
