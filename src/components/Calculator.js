@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
-import CalculatorDislpay from './CalculatorDisplay'
+import CalculatorDisplay from './CalculatorDisplay'
 import Button from './Button'
 
 const evaluate = function(accum, current, operation) {
   [current, accum] = [parseFloat(current), parseFloat(accum)]
+  let result
+
   if (operation === '+') {
-    return accum + current
+    result = accum + current
   } else if (operation === '-') {
-    return accum - current
+    result = accum - current
   } else if (operation === 'X') {
-    return accum * current
+    result = accum * current
   } else if (operation === '/') {
-    return accum / current
+    result = accum / current
   }
+
+  return String(result)
 }
 
 class Calculator extends Component {
@@ -58,24 +62,38 @@ class Calculator extends Component {
   }
 
   handleEquation = () => {
-    const { accum, current, lastOperator } = this.state
-    this.setState({
-      current: evaluate(accum, current, lastOperator),
-      accum: '',
-      lastOperator: '',
-      acceptsNewNumber: true
+    this.setState(prevState => {
+      const { accum, current, lastOperator } = prevState
+      return {
+        current: evaluate(accum, current, lastOperator),
+        accum: '',
+        lastOperator: '',
+        acceptsNewNumber: true
+      }
     })
+  }
+
+  handlePercentage = () => {
+    this.setState(prevState => ({
+      current: `${parseFloat(prevState.current) / 100}`
+    }))
+  }
+
+  handleInvert = () => {
+    this.setState(prevState => ({
+      current: `${-(parseFloat(prevState.current))}`
+    }))
   }
 
   render() {
     return (
       <div className="calculator">
-        <CalculatorDislpay number={this.state.current} />
+        <CalculatorDisplay number={this.state.current} />
         <div className="buttons">
           <div className='buttons-top'>
             <Button onClick={this.handleClear} value={'C'} />
-            <Button onClick={this.handleClear} value={'+/-'} />
-            <Button onClick={this.handleClear} value={'%'} />
+            <Button onClick={this.handleInvert} value={'+/-'} />
+            <Button onClick={this.handlePercentage} value={'%'} />
             <Button onClick={this.handleOperatorInput} value={'/'} />
             <Button onClick={this.handleNumberInput} value={"7"} />
             <Button onClick={this.handleNumberInput} value={"8"} />
