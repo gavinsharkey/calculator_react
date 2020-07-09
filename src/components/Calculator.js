@@ -16,7 +16,8 @@ const evaluate = function(accum, current, operation) {
     result = accum / current
   }
 
-  return String(result)
+  result = String(result)
+  return result === 'NaN' || result === 'Infinity' ? 'Error' : result
 }
 
 class Calculator extends Component {
@@ -62,15 +63,17 @@ class Calculator extends Component {
   }
 
   handleEquation = () => {
-    this.setState(prevState => {
-      const { accum, current, lastOperator } = prevState
-      return {
-        current: evaluate(accum, current, lastOperator),
-        accum: '',
-        lastOperator: '',
-        acceptsNewNumber: true
-      }
-    })
+    if (this.state.accum) {
+      this.setState(prevState => {
+        const { accum, current, lastOperator } = prevState
+        return {
+          current: evaluate(accum, current, lastOperator),
+          accum: '',
+          lastOperator: '',
+          acceptsNewNumber: true
+        }
+      })
+    }
   }
 
   handlePercentage = () => {
